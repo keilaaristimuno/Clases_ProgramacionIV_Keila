@@ -1,0 +1,36 @@
+<div>
+    <span class="tagline">{{ subtitle }}</span>
+    <div class="stats">
+        <!--totalCount es un metodo que me devuelve la cantidad total de usuarios-->
+        <span class="user-count"> Usuarios: {{ totalCount() }}</span>
+    </div>
+    <!-- refreshCount es un metodo -->
+<!--     <button (click)="refreshCount()">Refresh</button> -->
+
+</div>
+
+<div>
+<!-- el filterUser lo saco de user-list.ts -->
+ <!-- track es hacer seguimiento mediante el id, Palabra clave para controlar cómo el bucle for compara los elementos de la lista para calcular las actualizaciones -->
+    @for (user of filterUsers(); track user.id){
+        <app-user-card 
+        [user]="user"
+        (onToggleStatus)="toggleUserStatus($event) "
+        (onDelete)="deleteUser($event)">
+        
+        </app-user-card>
+        <p>{{ user.nombre }}</p>
+        <p>{{ user.apellido }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.isActive }}</p>
+        <hr>
+    }
+    @empty {
+        <p>No hay usuarios para mostrar</p>
+    }
+    <button (click)="setFilter('all')">Todos</button>
+    <button (click)="setFilter('active')">Activos</button>
+    <button (click)="setFilter('inactive')">Inactivos</button>
+</div>
+
+
